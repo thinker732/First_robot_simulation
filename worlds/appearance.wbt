@@ -1,0 +1,144 @@
+#VRML_SIM R2022a utf8
+WorldInfo {
+}
+Viewpoint {
+  orientation 0.13140935481382968 0.019717841751749603 -0.9911320740365868 3.1967618208417132
+  position 5.344294898600443 -0.34396967239141624 2.083033138467801
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Floor {
+  size 3 3
+}
+WoodenBox {
+  translation 0.649213 0.350425 0.05
+  rotation 0 1 0 0
+  name "wooden box(6)"
+  size 0.1 0.1 0.1
+  mass 1
+}
+WoodenBox {
+  translation 0.626472 -0.165962 0.15
+  rotation 0 1 0 0
+  name "wooden box(5)"
+  size 0.3 0.3 0.3
+  mass 1
+}
+WoodenBox {
+  translation 0.0874321 0.662945 0.05
+  rotation 0 1 0 0
+  name "wooden box(4)"
+  size 0.1 0.1 0.1
+  mass 1
+}
+WoodenBox {
+  translation 0.97826 -0.626097 0.15
+  rotation 0 1 0 0
+  name "wooden box(3)"
+  size 0.3 0.3 0.3
+  mass 1
+}
+E-puck {
+  translation 0.178987 0.0978907 0
+  controller "epuck_go_foward"
+}
+WoodenBox {
+  translation -0.114411 -0.080689 0.05
+  rotation 0 1 0 0
+  size 0.1 0.1 0.1
+  mass 1
+}
+WoodenBox {
+  translation -1.20128 -1.19408 0.25
+  rotation 0 1 0 0
+  name "wooden box(2)"
+  size 0.5 0.5 0.5
+  mass 1
+}
+WoodenBox {
+  translation -0.0942142 0.370829 0.05
+  rotation 0 1 0 0
+  name "wooden box(1)"
+  size 0.1 0.1 0.1
+  mass 1
+}
+DEF BALL_GEOMETRY Solid {
+  translation -0.00786566 -0.446335 0.2
+  children [
+    DEF BALL-SHAPE Shape {
+      appearance PBRAppearance {
+        baseColorMap ImageTexture {
+          url [
+            "/home/chronos/Images/texture/red_brick_wall.jpg"
+          ]
+        }
+      }
+      geometry DEF BALL_GEOMETRY Sphere {
+        radius 0.05
+        subdivision 2
+      }
+    }
+  ]
+  boundingObject USE BALL_GEOMETRY
+  physics Physics {
+  }
+}
+Solid {
+  translation 0.0151861 -0.0953616 0.09999999999999978
+  children [
+    USE BALL-SHAPE
+  ]
+  name "ball2"
+  boundingObject USE BALL_GEOMETRY
+  physics Physics {
+  }
+}
+Solid {
+  translation 0.0208431 1.44962 0.1
+  children [
+    DEF WALL_GEOMETRY Shape {
+      appearance PBRAppearance {
+        baseColorMap ImageTexture {
+          url [
+            "/home/chronos/Images/texture/red_brick_wall.jpg"
+          ]
+        }
+        roughness 1
+        metalness 0
+      }
+      geometry DEF BOX_GEOMETRY Box {
+        size 3 0.1 0.2
+      }
+    }
+  ]
+  name "wall"
+  boundingObject USE BOX_GEOMETRY
+}
+Solid {
+  translation -0.00215314 -1.54906 0.1
+  children [
+    USE WALL_GEOMETRY
+  ]
+  name "solid(2)"
+  boundingObject USE BOX_GEOMETRY
+}
+Solid {
+  translation -1.51945 -0.0701315 0.1
+  rotation 0 0 1 -1.5860301358473308
+  children [
+    USE WALL_GEOMETRY
+  ]
+  name "solid(1)"
+  boundingObject USE BOX_GEOMETRY
+}
+Solid {
+  translation 1.46887 -0.0934546 0.1
+  rotation 0 0 1 1.57734
+  children [
+    USE WALL_GEOMETRY
+  ]
+  name "solid(3)"
+  boundingObject USE BOX_GEOMETRY
+}

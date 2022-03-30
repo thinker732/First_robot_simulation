@@ -1,0 +1,206 @@
+#VRML_SIM R2022a utf8
+WorldInfo {
+  basicTimeStep 16
+}
+Viewpoint {
+  orientation -0.14126656043695102 -0.1375434143451793 0.980370117900675 4.810057349965972
+  position 0.733618749894593 3.1526428910256965 1.5650109496929085
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Floor {
+  size 3 3
+}
+Solid {
+  translation 0.0208431 1.44962 0.1
+  rotation 0 1 0 0
+  children [
+    DEF WALL_GEOMETRY Shape {
+      appearance PBRAppearance {
+        baseColorMap ImageTexture {
+          url [
+            "/home/chronos/Images/texture/red_brick_wall.jpg"
+          ]
+        }
+        roughness 1
+        metalness 0
+      }
+      geometry DEF BOX_GEOMETRY Box {
+        size 3 0.1 0.2
+      }
+    }
+  ]
+  name "wall"
+  boundingObject USE BOX_GEOMETRY
+}
+Solid {
+  translation -0.00215314 -1.54906 0.1
+  children [
+    USE WALL_GEOMETRY
+  ]
+  name "solid(2)"
+  boundingObject USE BOX_GEOMETRY
+}
+Solid {
+  translation -1.51945 -0.0701315 0.1
+  rotation 0 0 1 -1.5860301358473308
+  children [
+    USE WALL_GEOMETRY
+  ]
+  name "solid(1)"
+  boundingObject USE BOX_GEOMETRY
+}
+Solid {
+  translation 1.46887 -0.0934546 0.1
+  rotation 0 0 1 1.57734
+  children [
+    USE WALL_GEOMETRY
+  ]
+  name "solid(3)"
+  boundingObject USE BOX_GEOMETRY
+}
+Robot {
+  translation -0.0531716 -0.0897105 0.04
+  rotation 0 0 -1 0.0196353
+  children [
+    DEF BODY Shape {
+      appearance SolarCell {
+      }
+      geometry Box {
+        size 0.2 0.1 0.05
+      }
+    }
+    DEF WHEEL1 HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 1 0
+        anchor 0.05 0.06 0
+      }
+      device [
+        RotationalMotor {
+          name "wheel1"
+        }
+      ]
+      endPoint Solid {
+        translation 0.05 0.06 0
+        rotation 1 0 0 1.5708003061004252
+        children [
+          DEF WHEEL Shape {
+            appearance PBRAppearance {
+              baseColor 1 0 0
+              roughness 1
+              metalness 0
+            }
+            geometry Cylinder {
+              height 0.02
+              radius 0.04
+              subdivision 24
+            }
+          }
+        ]
+        boundingObject USE WHEEL
+        physics DEF WHEEL_PH Physics {
+        }
+      }
+    }
+    DEF WHEEL2 HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 1 0
+        anchor 0.05 -0.06 0
+      }
+      device [
+        RotationalMotor {
+          name "wheel2"
+        }
+      ]
+      endPoint Solid {
+        translation 0.05 -0.06 0
+        rotation 1 0 0 1.5708
+        children [
+          USE WHEEL
+        ]
+        name "solid(1)"
+        boundingObject USE WHEEL
+        physics USE WHEEL_PH
+      }
+    }
+    DEF WHEEL3 HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 1 0
+        anchor -0.05 0.06 0
+      }
+      device [
+        RotationalMotor {
+          name "wheel3"
+        }
+      ]
+      endPoint Solid {
+        translation -0.05 0.06 0
+        rotation 1 0 0 1.5708
+        children [
+          USE WHEEL
+        ]
+        name "solid(2)"
+        boundingObject USE WHEEL
+        physics USE WHEEL_PH
+      }
+    }
+    DEF WHEEL4 HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 1 0
+        anchor -0.05 -0.06 0
+      }
+      device [
+        RotationalMotor {
+          name "wheel4"
+        }
+      ]
+      endPoint Solid {
+        translation -0.05 -0.06 0
+        rotation 1 0 0 1.5708
+        children [
+          USE WHEEL
+        ]
+        name "solid(3)"
+        boundingObject USE WHEEL
+        physics USE WHEEL_PH
+      }
+    }
+    DEF DS_LEFT DistanceSensor {
+      translation 0.1 -0.03 0
+      rotation 0 0 1 -0.3
+      children [
+        DEF sensor_ Shape {
+          appearance PBRAppearance {
+            baseColor 0.2 0.6 0.9
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "ds_left"
+    }
+    DEF DS_RIGHT DistanceSensor {
+      translation 0.1 0.03 0
+      rotation 0 0 1 -0.3
+      children [
+        USE sensor_
+      ]
+      name "ds_right"
+    }
+  ]
+  boundingObject USE BODY
+  physics Physics {
+    density -1
+    mass 6
+  }
+  controller "four_wheeled_collision_avoidance"
+}
+WoodenBox {
+  translation 0.469571 0.0967187 0.05
+  size 0.1 0.1 0.1
+}
